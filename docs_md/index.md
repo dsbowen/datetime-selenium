@@ -1,4 +1,4 @@
-# Selenium-Tools
+# Selenium Tools
 
 Selenium-Tools provides the following tools for use with [Selenium](https://selenium-python.readthedocs.io/).:
 
