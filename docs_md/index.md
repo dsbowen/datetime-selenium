@@ -1,25 +1,28 @@
-# Datetime-Selenium
+# Selenium-Tools
 
-Datetime-Selenium allows you to send/retrieve `datetime.datetime` objects to/from web forms using [Selenium](https://selenium-python.readthedocs.io/).
+Selenium-Tools provides the following tools for use with [Selenium](https://selenium-python.readthedocs.io/).:
+
+1. Send/receive `datetime.datetime` objects from web forms.
+2. Drag range sliders to specified values.
 
 ## Installation
 
 ```
-$ pip install datetime-selenium
+$ pip install selenium-tools
 ```
 
 ## Quickstart
 
-First, clone an example file from the Datetime-Selenium repo.
+First, clone an example file from the Selenium-Tools repo.
 
 ```bash
-$ curl https://raw.githubusercontent.com/dsbowen/datetime-selenium/master/form.html --output form.html
+$ curl https://raw.githubusercontent.com/dsbowen/selenium-tools/master/form.html --output form.html
 ```
 
 Let's send the current date and time to all input in the form.
 
 ```python
-from datetime_selenium import send_datetime
+from selenium_tools import get_datetime, send_datetime
 
 from selenium.webdriver import Chrome
 
@@ -40,17 +43,45 @@ css_selectors = (
 for selector in css_selectors:
     input_ = driver.find_element_by_css_selector(selector)
     send_datetime(input_, datetime_)
+    print(get_datetime(
+        input_.get_attribute('type'), 
+        input_.get_property('value')
+    ))
 ```
 
-You'll see the form filled in in your selenium browser.
+You'll see the form filled in in your selenium browser and receive the following output in your terminal:
+
+```
+2020-06-30 00:00:00
+2020-06-30 15:47:00
+2020-06-01 00:00:00
+1900-01-01 15:47:00
+2020-01-01 00:00:00
+```
+
+We can also drag the range slider as follows:
+
+```python
+from selenium_tools import drag_range
+
+range_ = driver.find_element_by_css_selector('input[type=range]')
+drag_range(driver, range_, 80)
+range_.get_property('value')
+```
+
+Out:
+
+```
+'80'
+```
 
 ## Citation
 
 ```
-@software{bowen2020datetime-selenium,
+@software{bowen2020selenium-tools,
   author = {Dillon Bowen},
-  title = {Datetime-Selenium},
-  url = {https://dsbowen.github.io/datetime-selenium/},
+  title = {Selenium-Tools},
+  url = {https://dsbowen.github.io/selenium-tools/},
   date = {2020-06-29},
 }
 ```
@@ -59,4 +90,4 @@ You'll see the form filled in in your selenium browser.
 
 Users must cite this package in any publications which use it.
 
-It is licensed with the MIT [License](https://github.com/dsbowen/datetime-selenium/blob/master/LICENSE).
+It is licensed with the MIT [License](https://github.com/dsbowen/selenium-tools/blob/master/LICENSE).

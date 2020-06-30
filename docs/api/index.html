@@ -52,16 +52,26 @@
                     <li class="toctree-l1"><a class="reference internal" href="..">Home</a>
                     </li>
                 </ul>
-                <ul>
-                    <li class="toctree-l1"><a class="reference internal" href="../requests/">Get datetime objects</a>
-                    </li>
-                </ul>
                 <ul class="current">
                     <li class="toctree-l1 current"><a class="reference internal current" href="./">API</a>
     <ul class="current">
-    <li class="toctree-l2"><a class="reference internal" href="#datetime_seleniumsend_datetime">datetime_selenium.send_datetime</a>
+    <li class="toctree-l2"><a class="reference internal" href="#selenium_toolsdrag_range">selenium_tools.drag_range</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#examples">Examples</a>
     </li>
-    <li class="toctree-l2"><a class="reference internal" href="#datetime_seleniumget_datetime">datetime_selenium.get_datetime</a>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#selenium_toolssend_datetime">selenium_tools.send_datetime</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#examples_1">Examples</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#selenium_toolsget_datetime">selenium_tools.get_datetime</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#examples_2">Examples</a>
+    </li>
+        </ul>
     </li>
     </ul>
                     </li>
@@ -132,9 +142,72 @@
     </tbody>
 </table>
 
-<h2 id="datetime_seleniumsend_datetime">datetime_selenium.<strong>send_datetime</strong></h2>
+<h2 id="selenium_toolsdrag_range">selenium_tools.<strong>drag_range</strong></h2>
 <p class="func-header">
-    <i>def</i> datetime_selenium.<b>send_datetime</b>(<i>input_, datetime_</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/datetime-selenium/blob/master/datetime_selenium/__init__.py#L7">[source]</a>
+    <i>def</i> selenium_tools.<b>drag_range</b>(<i>driver, range_, target, horizontal=True, tol=0, max_iter=10</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/selenium-tools/blob/master/selenium_tools/__init__.py#L8">[source]</a>
+</p>
+
+<p>Drag a range slider to a desired target value.</p>
+<table class="docutils field-list field-table" frame="void" rules="none">
+    <col class="field-name" />
+    <col class="field-body" />
+    <tbody valign="top">
+        <tr class="field">
+    <th class="field-name"><b>Parameters:</b></td>
+    <td class="field-body" width="100%"><b>driver : <i>selenium.webdriver.chrome.webdriver.WebDriver or other webdriver</i></b>
+<p class="attr">
+    Webdriver in which the form is open.
+</p>
+<b>range_ : <i>selenium.webdriver.remote.webelement.WebElement</i></b>
+<p class="attr">
+    The range slider to be dragged.
+</p>
+<b>target : <i>float</i></b>
+<p class="attr">
+    Target value to which the sider should be dragged.
+</p>
+<b>horizontal : <i>bool, default=True</i></b>
+<p class="attr">
+    Indicates the slider is oriented horizontally, as opposed to vertically.
+</p>
+<b>tol : <i>float, default=0</i></b>
+<p class="attr">
+    Tolerance for error if the slider cannot be dragged to the exact target.
+</p>
+<b>max_iter : <i>int, default=10</i></b>
+<p class="attr">
+    Maximum number of iterations for the slider to reach the target.
+</p></td>
+</tr>
+<tr class="field">
+    <th class="field-name"><b>Returns:</b></td>
+    <td class="field-body" width="100%"><b>delta : <i>float</i></b>
+<p class="attr">
+    Remaining difference between the target and actual value.
+</p></td>
+</tr>
+    </tbody>
+</table>
+
+<h4 id="examples">Examples</h4>
+<pre><code class="python">from selenium_tools import drag_range
+
+from selenium.webdriver import Chrome
+
+driver = Chrome()
+driver.get('data:text/html,&lt;input type=&quot;range&quot;&gt;')
+range_ = driver.find_element_by_css_selector('input[type=range]')
+drag_range(driver, range_, 80)
+range_.get_property('value')
+</code></pre>
+
+<p>Out:</p>
+<pre><code>'80'
+</code></pre>
+
+<h2 id="selenium_toolssend_datetime">selenium_tools.<strong>send_datetime</strong></h2>
+<p class="func-header">
+    <i>def</i> selenium_tools.<b>send_datetime</b>(<i>input_, datetime_</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/selenium-tools/blob/master/selenium_tools/__init__.py#L74">[source]</a>
 </p>
 
 <p>Send a datetime object to a form input.</p>
@@ -156,9 +229,24 @@
     </tbody>
 </table>
 
-<h2 id="datetime_seleniumget_datetime">datetime_selenium.<strong>get_datetime</strong></h2>
+<h4 id="examples_1">Examples</h4>
+<pre><code class="python">from selenium_tools import send_datetime
+
+from selenium.webdriver import Chrome
+
+from datetime import datetime
+
+driver = Chrome()
+driver.get('data:text/html,&lt;input type=&quot;date&quot;&gt;')
+input_ = driver.find_element_by_css_selector('input[type=date]')
+send_datetime(input_, datetime.utcnow())
+</code></pre>
+
+<p>You should see the current date entered in the date input field in your
+browser.</p>
+<h2 id="selenium_toolsget_datetime">selenium_tools.<strong>get_datetime</strong></h2>
 <p class="func-header">
-    <i>def</i> datetime_selenium.<b>get_datetime</b>(<i>input_type, response</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/datetime-selenium/blob/master/datetime_selenium/__init__.py#L48">[source]</a>
+    <i>def</i> selenium_tools.<b>get_datetime</b>(<i>input_type, response</i>) <a class="src-href" target="_blank" href="https://github.com/dsbowen/selenium-tools/blob/master/selenium_tools/__init__.py#L133">[source]</a>
 </p>
 
 <p>Get a datetime object from a form response after a POST request.</p>
@@ -186,6 +274,24 @@
 </tr>
     </tbody>
 </table>
+
+<h4 id="examples_2">Examples</h4>
+<pre><code class="python">from selenium_tools import get_datetime, send_datetime
+
+from selenium.webdriver import Chrome
+
+from datetime import datetime
+
+driver = Chrome()
+driver.get('data:text/html,&lt;input type=&quot;date&quot;&gt;')
+input_ = driver.find_element_by_css_selector('input[type=date]')
+send_datetime(input_, datetime.utcnow())
+get_datetime(input_.get_attribute('type'), input_.get_property('value'))
+</code></pre>
+
+<p>Out:</p>
+<pre><code>datetime.datetime(2020, 6, 30, 0, 0)
+</code></pre>
               
             </div>
           </div>
@@ -194,7 +300,7 @@
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
       
-        <a href="../requests/" class="btn btn-neutral" title="Get datetime objects"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href=".." class="btn btn-neutral" title="Home"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -222,7 +328,7 @@
           <a href="https://github.com/dsbowen/datetime-selenium/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
       
       
-        <span><a href="../requests/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href=".." style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
     </span>

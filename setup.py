@@ -4,14 +4,14 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="datetime-selenium",
+    name="selenium-tools",
     version="0.0.0",
     author="Dillon Bowen",
     author_email="dsbowen@wharton.upenn.edu",
-    description="Send and receive datetime objects from web forms.",
+    description="Datetime and range slider tools for Selenium.",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://dsbowen.github.io/datetime-selenium",
+    url="https://dsbowen.github.io/selenium-tools",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",
