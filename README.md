@@ -1,4 +1,4 @@
-Selenium-Tools provides the following tools for use with [Selenium](https://selenium-python.readthedocs.io/).:
+Selenium-Tools provides the following tools for use with [Selenium](https://selenium-python.readthedocs.io/):
 
 1. Send/receive `datetime.datetime` objects from web forms.
 2. Drag range sliders to specified values.

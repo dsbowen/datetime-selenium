@@ -61,15 +61,15 @@ def drag_range(driver, range_, target, horizontal=True, tol=0, max_iter=10):
     min_ = float(range_.get_attribute('min') or 0)
     ac = ActionChains(driver)
     ac.click_and_hold(range_).perform()
-    i = 0
-    value = float(range_.get_property('value'))
-    while i < max_iter and abs(target - value) > tol:
+    for _ in range(max_iter):
+        value = float(range_.get_property('value'))
+        if abs(target - value) <= tol:
+            break
         offset = (target-value) * size / (max_-min_)
         xoffset, yoffset = (offset, 0) if horizontal else (0, -offset)
         ac.move_by_offset(xoffset, yoffset).perform()
-        value = float(range_.get_property('value'))
     ac.release().perform()
-    return target - value
+    return target - float(range_.get_property('value'))
 
 def send_datetime(input_, datetime_):
     """
