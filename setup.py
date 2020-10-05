@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="selenium-tools",
-    version="0.0.0",
+    version="0.0.1",
     author="Dillon Bowen",
     author_email="dsbowen@wharton.upenn.edu",
     description="Datetime and range slider tools for Selenium.",
